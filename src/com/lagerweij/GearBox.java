@@ -26,14 +26,33 @@ package com.lagerweij;
 public class GearBox {
     int gear = 0;
 
+   static final int MAX_GEAR = 6;
+   static final int MIN_GEAR = 1;
+   static final int UPPER_RPM_BOUND = 2000;
+   static final int LOWER_RPM_BOUND = 500;
+
     public void shiftGear(int rpm) {
-        if (gear <= 0) {
+        if (gear < MIN_GEAR) {
             return;
         }
-        if (rpm > 2000 && gear < 6) {
+        if (rpmTooHigh(rpm) && shiftUpPossible()) {
             gear++;
-        } else if (rpm < 500 && gear >1) {
+        } else if (shouldShiftUp(rpm)) {
             gear--;
         }
     }
+
+    private boolean shouldShiftUp(int rpm) {
+        return rpm < LOWER_RPM_BOUND && gear > MIN_GEAR;
     }
+
+    private boolean rpmTooHigh(int rpm) {
+        return rpm > UPPER_RPM_BOUND;
+    }
+
+    private boolean shiftUpPossible() {
+        return gear < MAX_GEAR;
+    }
+
+
+}
