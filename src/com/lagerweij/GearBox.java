@@ -25,12 +25,12 @@ package com.lagerweij;
 
 public class GearBox {
     int gear = 0;
-    int e = 0;
+
 
     public void shiftGear(int rpm) {
         if (gear < 0) {
             // do nothing!
-            e = rpm;
+
         } else {
             if (gear > 0) {
                 if (rpm > 2000) {
@@ -44,6 +44,6 @@ public class GearBox {
         } else if (gear < 1) {
             gear++;
         }
-        e = rpm;
+
     }
 }
